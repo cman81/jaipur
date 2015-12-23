@@ -1,0 +1,70 @@
+.clear {
+    float: none;
+    clear: both;
+}
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.left { float: left; }
+.half { width: 50%; }
+
+.card {
+    float: left;
+    border: 1px black solid;
+    height: 150px;
+    width: 95px;
+    text-align: center;
+    margin: 6px;
+    line-height: 150px;
+    cursor: pointer;
+}
+.camel.card {
+    color: gray;
+    border-color: gray;
+}
+.cloth.card.on,
+.tokens .cloth span {
+    background-color: green;
+    color: white;
+}
+.leather.card.on,
+.tokens .leather span {
+    background-color: brown;
+    color: white;
+}
+.silver.card.on,
+.tokens .silver span {
+    background-color: gray;
+    color: white;
+}
+.gold.card.on,
+.tokens .gold span { background-color: yellow; }
+.diamond.card.on,
+.tokens .diamond span {
+    background-color: red;
+    color: white;
+}
+.spice.card.on,
+.tokens .spice span { background-color: orange; }
+
+
+.player .revealed { display: none; }
+.tokens span {
+    border: 1px solid black;
+    border-radius: 10px;
+    display: inline-block;
+    line-height: 21px;
+    margin: 2px;
+    text-align: center;
+    width: 21px;
+}
+.status {
+    background-color: lightgreen;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-right: 60px;
+    padding: 20px;
+    display: none;
+}
