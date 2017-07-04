@@ -68,3 +68,8 @@
     padding: 20px;
     display: none;
 }
+.instructions {
+    border: 1px solid #666;
+    padding: 20px;
+    margin: 10px;
+}
