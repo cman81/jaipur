@@ -563,7 +563,12 @@ function nextPlayer() {
       $('.player.' + playerIdx + ' .hidden .cards').html(thisPlayer.hand.length);
       $('.player.' + playerIdx + ' .hidden .tokens').html(thisPlayer.tokens.length);
     }
-    
+
+    /**
+     * Clear out all actions and allow the active player to begin their turn.
+     *
+     * @param {string} playerIdx
+     */
     function beginTurn(playerIdx) {
       $('.player .actions').empty();
       $('.player.' + playerIdx + ' .actions').html('<input type="button" class="take-turn" value="Take Turn" />');
@@ -576,27 +581,28 @@ function nextPlayer() {
       return 'beta';
     }
 
+    /**
+     * When a user begins their turn, present them with a list of possible moves they can make.
+     */
     $('.player').on('click', '.take-turn', function() {
-      var playerIdx;
-      if ($(this).parents('.player').hasClass('alpha')) {
-        playerIdx = 'alpha';
-      } else {
-        playerIdx = 'beta';
-      }
+      var playerIdx = getThisPlayer($(this));
+
       $(this).parents('.player').find('.revealed').toggle();
       $(this).parents('.player').find('.hidden').toggle();
+      $(this).parent().append('<h3>Available Actions:</h3><ul>');
       if (camelCount() > 0) {
-        $(this).parent().append('<input type="button" class="take-camels" value="Take Camels" />');
+        $(this).parent().append('<li><input type="button" class="take-camels" value="Take ' + camelCount() + ' Camels" /> from the board</li>');
       }
       if (camelCount() < 5 && gamestate.players[playerIdx].hand.length < 7) {
-        $(this).parent().append('<input type="button" class="take-good" value="Take 1 Good" />');  
+        $(this).parent().append('<li>Click on a good on the left, then <input type="button" class="take-good" value="Take 1 Good" /></li>');
       }
       if (gamestate.players[playerIdx].camels > 0 || gamestate.players[playerIdx].hand.length > 0) {
-        $(this).parent().append('<input type="button" class="trade" value="Trade" />');
+        $(this).parent().append('<li>Click on the same number of goods from your hand and the board, then <input type="button" class="trade" value="Trade" /><br />(You can also trade away your camels by selecting nothing from your hand)</li>');
       }
       if (gamestate.players[playerIdx].hand.length > 0) {
-        $(this).parent().append('<input type="button" class="sell" value="Sell" />');
+        $(this).parent().append('<li>Click on as many cards in yor hand <strong>of the same type</strong>, then <input type="button" class="sell" value="Sell" /></li>');
       }
+      $(this).parent().append('</ul>');
       $(this).remove();
     });
     
