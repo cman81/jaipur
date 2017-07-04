@@ -626,7 +626,7 @@ function nextPlayer() {
       takeCamels(playerKey)
       drawMarketplace();
       drawPlayer(playerKey);
-      $(this).parent().html('<input type="button" class="end-turn" value="End Turn" />');
+      $(this).parents('div.actions').html('<input type="button" class="end-turn" value="End Turn" />');
     });
     
     $('.player').on('click', '.take-good', function() {
@@ -646,7 +646,7 @@ function nextPlayer() {
         
         drawMarketplace();
         drawPlayer(playerKey);
-        $(this).parent().html('<input type="button" class="end-turn" value="End Turn" />');
+        $(this).parents('div.actions').html('<input type="button" class="end-turn" value="End Turn" />');
       } else {
         $('.status').html('Select a single card from the marketplace, then click "Take 1 Good"');
         $('.status').show();
@@ -681,7 +681,7 @@ function nextPlayer() {
         swapCards(playerKey, cardsToMarketplace, cardsToHand, camelsToTrade);  
         drawMarketplace();
         drawPlayer(playerKey);
-        $(this).parent().html('<input type="button" class="end-turn" value="End Turn" />');
+        $(this).parents('div.actions').html('<input type="button" class="end-turn" value="End Turn" />');
       } catch(err) {
         $('.status').html(err.message);
         $('.status').show();
@@ -703,7 +703,7 @@ function nextPlayer() {
         sellCards(playerKey, cardsToSell);
         drawMarketplace();
         drawPlayer(playerKey);
-        $(this).parent().html('<input type="button" class="end-turn" value="End Turn" />');
+        $(this).parents('div.actions').html('<input type="button" class="end-turn" value="End Turn" />');
       } catch(err) {
         $('.status').html(err.message);
         $('.status').show();
