@@ -581,6 +581,15 @@ function nextPlayer() {
       return 'beta';
     }
 
+    function showStatus(message) {
+      $('.status').html(message + '<a href="#" class="dismiss">(dismiss)</a>');
+      $('.status').show();
+    }
+
+    $('.status').on('click', '.dismiss', function() {
+      $('.status').hide();
+    });
+
     /**
      * When a user begins their turn, present them with a list of possible moves they can make.
      */
@@ -614,8 +623,7 @@ function nextPlayer() {
       } else {
         var roundWinner = determineRoundWinner();
         gamestate.players[roundWinner].rounds++;
-        $('.status').html('Round over: ' + roundWinner + ' won!');
-        $('.status').show();
+        showStatus('Round over: ' + roundWinner + ' won!');
       }
       $('.empty-piles .count').html(gamestate.emptyPiles);
       $(this).remove();
@@ -638,8 +646,7 @@ function nextPlayer() {
             try {
               takeOneCard(playerKey, key);
             } catch(err) {
-              $('.status').html(err.message);
-              $('.status').show();
+              showStatus(err.message);
             }
           }
         });
@@ -648,8 +655,7 @@ function nextPlayer() {
         drawPlayer(playerKey);
         $(this).parents('div.actions').html('<input type="button" class="end-turn" value="End Turn" />');
       } else {
-        $('.status').html('Select a single card from the marketplace, then click "Take 1 Good"');
-        $('.status').show();
+        showStatus(err.message);
       }
     });
     
@@ -683,8 +689,7 @@ function nextPlayer() {
         drawPlayer(playerKey);
         $(this).parents('div.actions').html('<input type="button" class="end-turn" value="End Turn" />');
       } catch(err) {
-        $('.status').html(err.message);
-        $('.status').show();
+        showStatus(err.message);
       }
 
     });
@@ -705,8 +710,7 @@ function nextPlayer() {
         drawPlayer(playerKey);
         $(this).parents('div.actions').html('<input type="button" class="end-turn" value="End Turn" />');
       } catch(err) {
-        $('.status').html(err.message);
-        $('.status').show();
+        showStatus(err.message);
       }
       
     });
