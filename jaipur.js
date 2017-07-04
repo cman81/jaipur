@@ -327,6 +327,9 @@ function swapCards(playerKey, cardsToMarketplace, cardsToHand, camels) {
     }
 }
 
+/**
+ * Replenish the marketplace as cards are taken.
+ */
 function reloadMarketplace() {
   console.log('Old marketplace:');
   console.log(gamestate.marketplace);
@@ -560,6 +563,7 @@ function nextPlayer() {
       }
       $('.player.' + playerIdx + ' .hand').append('<div class="clear"></div>');
       $('.player.' + playerIdx + ' .camels').html(thisPlayer.camels);
+      $('.player.' + playerIdx + ' .score').html(thisPlayer.points + ((thisPlayer.points == 1 ? ' point' : ' points')));
       $('.player.' + playerIdx + ' .hidden .cards').html(thisPlayer.hand.length);
       $('.player.' + playerIdx + ' .hidden .tokens').html(thisPlayer.tokens.length);
     }
