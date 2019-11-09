@@ -402,6 +402,12 @@ function sellCards(playerKey, cards) {
   var typeOfGood = false;
 
   // validation
+    if (cards.length == 0) {
+      throw {
+        'status': 'error',
+        'message': 'No goods selected to sell'
+      };
+    }
     for (var key in cards) {
       var idx = cards[key];
       if (typeOfGood != oldHand[idx] && typeOfGood != false) {
@@ -610,7 +616,7 @@ function nextPlayer() {
         $(this).parent().append('<li>Click on the same number of goods from your hand and the board, then <input type="button" class="trade" value="Trade" /><br />(You can also trade away your camels by selecting nothing from your hand)</li>');
       }
       if (gamestate.players[playerIdx].hand.length > 0) {
-        $(this).parent().append('<li>Click on as many cards in yor hand <strong>of the same type</strong>, then <input type="button" class="sell" value="Sell" /></li>');
+        $(this).parent().append('<li>Click on as many cards in your hand <strong>of the same type</strong>, then <input type="button" class="sell" value="Sell" /></li>');
       }
       $(this).parent().append('</ul>');
       $(this).remove();

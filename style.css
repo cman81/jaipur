@@ -49,7 +49,11 @@
 .spice.card.on,
 .tokens .spice span { background-color: orange; }
 
-
+.player {
+    border: 1px #cccccc solid;
+    padding: 20px 20px 40px;
+    margin-bottom: 15px; 
+}
 .player .revealed { display: none; }
 .tokens span {
     border: 1px solid black;
