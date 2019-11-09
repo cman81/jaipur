@@ -116,26 +116,47 @@ var gamestate = {
 };
 
 function setup() {
-  // sort tokens in descending order
-    gamestate.tokens.diamond = gamebits.tokens.Diamond.points; // assumes the JSON is already sorted this way
-    gamestate.tokens.gold = gamebits.tokens.Gold.points; // assumes the JSON is already sorted this way
-    gamestate.tokens.silver = gamebits.tokens.Silver.points; // assumes the JSON is already sorted this way
-    gamestate.tokens.cloth = gamebits.tokens.Cloth.points; // assumes the JSON is already sorted this way
-    gamestate.tokens.spice = gamebits.tokens.Spice.points; // assumes the JSON is already sorted this way
-    gamestate.tokens.leather = gamebits.tokens.Leather.points; // assumes the JSON is already sorted this way
+  setupGoodsTokens();
+  setupBonusTokens();
+  setupTableCards();
+  setupPlayers();
+  logInitialGamestate();
 
-  // shuffle the #3, #4, and #5 Bonus tokens
-    gamestate.tokens.bonus3 = gamebits.tokens.Bonus3.points;
-    shuffle(gamestate.tokens.bonus3);
-    gamestate.tokens.bonus4 = gamebits.tokens.Bonus4.points;
-    shuffle(gamestate.tokens.bonus4);
-    gamestate.tokens.bonus5 = gamebits.tokens.Bonus5.points;
-    shuffle(gamestate.tokens.bonus5);
-  
-  // place 3 camel cards on the table (marketplace)
+  function logInitialGamestate() {
+    console.log('Current Marketplace:');
+    console.log(gamestate.marketplace);
+    for (var key in gamestate.players) {
+      var value = gamestate.players[key];
+      console.log('Player ' + key + ' has ' + value.camels + ' camels.');
+    }
+  }
+
+  function setupPlayers() {
+    // give players a starting hand of 5 cards
+    for (var key in gamestate.players) {
+      var value = gamestate.players[key];
+      for (var i = 0; i < 5; i++) {
+        // players reveal any camel cards
+        var thisCard = gamestate.deck.pop();
+        if (thisCard == 'camel') {
+          value.camels++;
+        }
+        else {
+          value.hand.push(thisCard);
+        }
+      }
+    }
+    
+    // determine starting player
+    gamestate.whoseTurn = 'alpha';
+    return { key, value };
+  }
+
+  function setupTableCards() {
+    // place 3 camel cards on the table (marketplace)
     gamestate.marketplace = ['camel', 'camel', 'camel'];
-  
-  // shuffle the rest of the cards into a draw deck
+    
+    // shuffle the rest of the cards into a draw deck
     gamestate.deck = [];
     for (var key in gamebits.cards) {
       var qty = gamebits.cards[key].qty;
@@ -144,36 +165,33 @@ function setup() {
       }
       for (var count = 0; count < qty; count++) {
         gamestate.deck.push(key);
-      }  
-    }
-    shuffle(gamestate.deck);
-  
-  // draw 2 cards from the deck to complete the marketplace
-    gamestate.marketplace.push(gamestate.deck.pop());
-    gamestate.marketplace.push(gamestate.deck.pop());
-  
-  // give players a starting hand of 5 cards
-    for (var key in gamestate.players) {
-      var value = gamestate.players[key];
-      for (var i = 0; i < 5; i++) {
-        // players reveal any camel cards
-        var thisCard = gamestate.deck.pop();
-        if (thisCard == 'camel') {
-          value.camels++;
-        } else {
-          value.hand.push(thisCard);
-        }
       }
     }
+    shuffle(gamestate.deck);
     
-  // determine starting player
-    gamestate.whoseTurn = 'alpha';
-  
-  console.log('Current Marketplace:');
-  console.log(gamestate.marketplace);
-  for (var key in gamestate.players) {
-    var value = gamestate.players[key];
-    console.log('Player ' + key + ' has ' + value.camels + ' camels.');
+    // draw 2 cards from the deck to complete the marketplace
+    gamestate.marketplace.push(gamestate.deck.pop());
+    gamestate.marketplace.push(gamestate.deck.pop());
+  }
+
+  // shuffle the #3, #4, and #5 Bonus tokens
+  function setupBonusTokens() {
+    gamestate.tokens.bonus3 = gamebits.tokens.Bonus3.points;
+    shuffle(gamestate.tokens.bonus3);
+    gamestate.tokens.bonus4 = gamebits.tokens.Bonus4.points;
+    shuffle(gamestate.tokens.bonus4);
+    gamestate.tokens.bonus5 = gamebits.tokens.Bonus5.points;
+    shuffle(gamestate.tokens.bonus5);
+  }
+
+  // sort tokens in descending order
+  function setupGoodsTokens() {
+    gamestate.tokens.diamond = gamebits.tokens.Diamond.points; // assumes the JSON is already sorted this way
+    gamestate.tokens.gold = gamebits.tokens.Gold.points; // assumes the JSON is already sorted this way
+    gamestate.tokens.silver = gamebits.tokens.Silver.points; // assumes the JSON is already sorted this way
+    gamestate.tokens.cloth = gamebits.tokens.Cloth.points; // assumes the JSON is already sorted this way
+    gamestate.tokens.spice = gamebits.tokens.Spice.points; // assumes the JSON is already sorted this way
+    gamestate.tokens.leather = gamebits.tokens.Leather.points; // assumes the JSON is already sorted this way
   }
 }
 
