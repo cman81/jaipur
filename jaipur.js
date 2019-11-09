@@ -641,22 +641,27 @@ function nextPlayer() {
     $('.player').on('click', '.take-good', function() {
       var playerKey = getThisPlayer($(this));
       var isCardTaken = false;
+      if ($('.marketplace .card.on').length == 0) {
+        showStatus('Click on a good on the left first, then click [Take 1 Good]');
+        return;
+      }
+      if ($('.marketplace .card.on').length > 1) {
+        showStatus("Don't be greedy! Only select 1 good, then click [Take 1 Good]");
+      }
       if ($('.marketplace .card.on').length == 1) {
-        $('.marketplace .card').each(function(key, element) {
+        $('.marketplace .card').each(function (key, element) {
           if ($(element).hasClass('on')) {
             try {
               takeOneCard(playerKey, key);
-            } catch(err) {
+            } catch (err) {
               showStatus(err.message);
             }
           }
         });
-        
+
         drawMarketplace();
         drawPlayer(playerKey);
         $(this).parents('div.actions').html('<input type="button" class="end-turn" value="End Turn" />');
-      } else {
-        showStatus(err.message);
       }
     });
     
