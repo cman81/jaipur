@@ -2,10 +2,7 @@
  * Jaipur
  * This game is 2 players.
  * Win 2 rounds to win the game.
- * 
- * Uses knuthShuffle: <script src="https://raw.github.com/coolaj86/knuth-shuffle/master/index.js"></script>
  */
-
 
 var gamebits = {
   'cards' : {
@@ -129,11 +126,11 @@ function setup() {
 
   // shuffle the #3, #4, and #5 Bonus tokens
     gamestate.tokens.bonus3 = gamebits.tokens.Bonus3.points;
-    window.knuthShuffle(gamestate.tokens.bonus3);
+    shuffle(gamestate.tokens.bonus3);
     gamestate.tokens.bonus4 = gamebits.tokens.Bonus4.points;
-    window.knuthShuffle(gamestate.tokens.bonus4);
+    shuffle(gamestate.tokens.bonus4);
     gamestate.tokens.bonus5 = gamebits.tokens.Bonus5.points;
-    window.knuthShuffle(gamestate.tokens.bonus5);
+    shuffle(gamestate.tokens.bonus5);
   
   // place 3 camel cards on the table (marketplace)
     gamestate.marketplace = ['camel', 'camel', 'camel'];
@@ -149,7 +146,7 @@ function setup() {
         gamestate.deck.push(key);
       }  
     }
-    window.knuthShuffle(gamestate.deck);
+    shuffle(gamestate.deck);
   
   // draw 2 cards from the deck to complete the marketplace
     gamestate.marketplace.push(gamestate.deck.pop());
